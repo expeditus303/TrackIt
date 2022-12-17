@@ -1,36 +1,93 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { accentColor } from "../../constants/colors";
+import { weekdays } from "../../WEEKDAYS";
 
-export default function CreateNewHabitForm() {
-    return (
-        <CreateNewHabitFormContainer>
-          <input
-            type="text"
-            name="habitName"
-            placeholder="habit name"
-            maxLength={50}
-            required
-          />
+export default function CreateNewHabitForm(props) {
+  const { formShowUp, setFormShowUp, newHabitList, setNewHabitList } = props;
 
-          <button>S</button>
-          <button id="selected">M</button>
-          <button>T</button>
-          <button id="selected">W</button>
-          <button>T</button>
-          <button>F</button>
-          <button>S</button>
+  const [selectedDays, setSelectedDays] = useState([]);
 
-          <div className="submitContainer">
-            <button id="cancel">Cancel</button>
-            <button id="save">Save</button>
-          </div>
-        </CreateNewHabitFormContainer>
-    )
+  const [newHabitName, setNewHabitName] = useState("");
+
+  console.log(newHabitName);
+
+  function daySelected(d) {
+    if (selectedDays.includes(d)) {
+      let newArray = selectedDays.filter((f) => f !== d);
+      setSelectedDays(newArray);
+    } else {
+      let newArray = [...selectedDays, d];
+      setSelectedDays(newArray);
+      console.log(newArray);
+    }
+  }
+
+  function saveHabit() {
+    
+    if (newHabitName.length === 0) {
+      alert("Please, insert a habit.");
+
+    } else if (selectedDays.length === 0) {
+      alert("Please, select at least one day for your habit.");
+    
+    } else {
+      const habitInfo = {
+        name: newHabitName,
+        days: selectedDays,
+      };
+
+      const newArray = [...newHabitList, habitInfo];
+      setNewHabitList(newArray);
+      setNewHabitName("");
+      setSelectedDays([]);
+    }
+  }
+
+  function cancelHabit() {
+    setFormShowUp(false);
+    setNewHabitName("");
+    setSelectedDays([]);
+  }
+
+  return (
+    <CreateNewHabitFormContainer formShowUp={formShowUp}>
+      <input
+        type="text"
+        name="habitName"
+        placeholder="habit name"
+        maxLength={50}
+        value={newHabitName}
+        onChange={(e) => setNewHabitName([e.target.value])}
+      />
+
+      {weekdays.map((w) => (
+        <button
+          key={w.id}
+          onClick={() => daySelected(w.id)}
+          id={selectedDays.includes(w.id) ? "selected" : ""}
+        >
+          {w.day}
+        </button>
+      ))}
+
+      <div className="submitContainer">
+        <button id="cancel" onClick={cancelHabit}>
+          Cancel
+        </button>
+        <button id="save" onClick={saveHabit}>
+          Save
+        </button>
+      </div>
+    </CreateNewHabitFormContainer>
+  );
 }
 
-const CreateNewHabitFormContainer = styled.form`
-  padding: 19px 19px 10px;
+const CreateNewHabitFormContainer = styled.div`
+  padding: 0px 19px 10px;
+  margin-top: 19px;
   margin-bottom: 29px;
+  display: ${(props) => (props.formShowUp ? "block" : "none")};
 
   input {
     width: 100%;

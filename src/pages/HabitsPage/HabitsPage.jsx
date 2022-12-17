@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import CreateNewHabitForm from "../../components/CreateNewHabitForm/CreateNewHabitForm";
 import Footer from "../../components/Footer/Footer";
@@ -5,8 +6,14 @@ import HabitList from "../../components/HabitList/HabitList";
 import NavBar from "../../components/NavBar/NavBar";
 import { accentColor, baseColor } from "../../constants/colors";
 
+export default function HabitsPage(props) {
 
-export default function HabitsPage() {
+  const { HABITOS_USUARIO } = props;
+
+  const [formShowUp, setFormShowUp] = useState(false);
+
+  const [newHabitList, setNewHabitList] = useState(HABITOS_USUARIO)
+
   return (
     <>
       <NavBar />
@@ -14,17 +21,17 @@ export default function HabitsPage() {
       <MyHabitsContainer>
         <MyHabitsHeader>
           <h2>My habits</h2>
-          <button>+</button>
+          <button onClick={() => setFormShowUp(!formShowUp)}>+</button>
         </MyHabitsHeader>
 
-        <CreateNewHabitForm />
+        <CreateNewHabitForm formShowUp={formShowUp} setFormShowUp={setFormShowUp} newHabitList={newHabitList} setNewHabitList={setNewHabitList}/>
 
-        <p>
+        <DontHaveHabitsText HABITOS_USUARIO={HABITOS_USUARIO}>
           You don't have any habits registered.<br></br>
           Add a habit to start tracking!
-        </p>
+        </DontHaveHabitsText>
 
-        <HabitList />
+        <HabitList newHabitList={newHabitList} />
       </MyHabitsContainer>
 
       <Footer />
@@ -34,14 +41,15 @@ export default function HabitsPage() {
 
 const MyHabitsContainer = styled.div`
   margin: 98px 18px 114px;
-
-  p {
-    font-size: 16px;
-    line-height: 22px;
-    color: #666666;
-  }
 `;
 
+const DontHaveHabitsText = styled.p`
+  font-size: 16px;
+  line-height: 22px;
+  color: #666666;
+  margin-top: 19px;
+  display: ${(props) => (props.HABITOS_USUARIO.length > 0 ? "none" : "block")};
+`;
 
 const MyHabitsHeader = styled.div`
   display: flex;
@@ -63,4 +71,3 @@ const MyHabitsHeader = styled.div`
     color: #ffffff;
   }
 `;
-

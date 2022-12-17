@@ -7,6 +7,10 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import TodayPage from "./pages/TodayPage/TodayPage";
 import GlobalStyle from "./styles/GlobalStyle";
 
+// apagar abaixo os imports
+import { HABITOS_USUARIO } from "./HABITOS_USUARIO"
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -15,7 +19,7 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<LoginPage />} />
           <Route path="/cadastro" element={<SignUpPage />} /> */}
-          <Route path="/habitos" element={<HabitsPage />} />
+          <Route path="/habitos" element={<HabitsPage HABITOS_USUARIO={HABITOS_USUARIO} />} />
           <Route path="/hoje" element={<TodayPage />} />
           <Route path="/historico" element={<History />} />
         </Routes>
@@ -29,10 +33,14 @@ export default App;
 const Body = styled.div`
   margin: auto;
   width: 375px;
-  height: 100vh;
   font-family: "Lexend Deca", sans-serif;
   margin-top: 70px;
   margin-bottom: 150px;
   /* background-color: #d0d0d0; */
   /* background-color: deeppink; */
+
+  button:hover, ion-icon:hover {
+    cursor: pointer;
+  }
+
 `;

@@ -1,67 +1,27 @@
 import styled from "styled-components";
+import { weekdays } from "../../WEEKDAYS";
 
-export default function HabitList() {
+
+export default function HabitList(props) {
+  const { newHabitList } = props;
+
+
   return (
     <HabitsListContainer>
-      <HabitCard>
-        <div>
-          <h3>Read one chapter of a book</h3>
-          <ion-icon name="trash-outline"></ion-icon>
-        </div>
+      {newHabitList.map((h) => (
+        <HabitCard key={h.id}>
+          <div>
+            <h3>{h.name}</h3>
+            <ion-icon name="trash-outline"></ion-icon>
+          </div>
 
-        <button>S</button>
-        <button id="selected">M</button>
-        <button>T</button>
-        <button id="selected">W</button>
-        <button>T</button>
-        <button>F</button>
-        <button>S</button>
-      </HabitCard>
-
-      <HabitCard>
-        <div>
-          <h3>Read one chapter of a book</h3>
-          <ion-icon name="trash-outline"></ion-icon>
-        </div>
-
-        <button>S</button>
-        <button id="selected">M</button>
-        <button>T</button>
-        <button id="selected">W</button>
-        <button>T</button>
-        <button>F</button>
-        <button>S</button>
-      </HabitCard>
-
-      <HabitCard>
-        <div>
-          <h3>Read one chapter of a book</h3>
-          <ion-icon name="trash-outline"></ion-icon>
-        </div>
-
-        <button>S</button>
-        <button id="selected">M</button>
-        <button>T</button>
-        <button id="selected">W</button>
-        <button>T</button>
-        <button>F</button>
-        <button>S</button>
-      </HabitCard>
-
-      <HabitCard>
-        <div>
-          <h3>Read one chapter of a book</h3>
-          <ion-icon name="trash-outline"></ion-icon>
-        </div>
-
-        <button>S</button>
-        <button id="selected">M</button>
-        <button>T</button>
-        <button id="selected">W</button>
-        <button>T</button>
-        <button>F</button>
-        <button>S</button>
-      </HabitCard>
+          {weekdays.map((w) => (
+            <button key={w.id} id={h.days.includes(w.id) ? "selected" : ""}>
+              {w.day}
+            </button>
+          ))}
+        </HabitCard>
+      ))}
     </HabitsListContainer>
   );
 }
