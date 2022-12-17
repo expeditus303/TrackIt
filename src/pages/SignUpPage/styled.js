@@ -17,6 +17,7 @@ export const SignUpContainer = styled.div`
     border-radius: 5px;
     padding: 11px;
     margin-bottom: 6px;
+    font-size: 19.976px;
   }
 
   input::placeholder {

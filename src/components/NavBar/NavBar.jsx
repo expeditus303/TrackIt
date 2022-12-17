@@ -1,10 +1,11 @@
 import { NavBarContainer } from "./styled";
+import photo from "../../assets/hoppe.png"
 
 export default function NavBar() {
     return (
         <NavBarContainer>
         <h1>TrackIt</h1>
-        <img src="" alt="" />''
+        <img src={photo} alt="" />
         </NavBarContainer>
     )
 }
