@@ -5,6 +5,12 @@ import { weekdays } from "../../WEEKDAYS";
 export default function HabitList(props) {
   const { newHabitList } = props;
 
+  function deleteHabit(id) {
+    console.log(id)
+
+    //enviar para a api o id
+  }
+
 
   return (
     <HabitsListContainer>
@@ -12,7 +18,7 @@ export default function HabitList(props) {
         <HabitCard key={h.id}>
           <div>
             <h3>{h.name}</h3>
-            <ion-icon name="trash-outline"></ion-icon>
+            <ion-icon name="trash-outline" onClick={() => deleteHabit(h.id)}></ion-icon>
           </div>
 
           {weekdays.map((w) => (

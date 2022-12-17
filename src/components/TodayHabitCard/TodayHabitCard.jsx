@@ -1,46 +1,29 @@
+import { useState } from "react";
 import styled from "styled-components";
 
-export default function TodayHabitCard() {
+// APAGAR IMPORT ABAIXO
+
+export default function TodayHabitCard(props) {
+  const { name, currentSequence, highestSequence, done } = props;
+
+  const [habitCheck, setHabitCheck] = useState(done);
+
+  console.log(habitCheck)
+
+  function habitDone() {
+    setHabitCheck(!habitCheck);
+  }
+
   return (
     <>
-      <TodayHabitCardContainer>
+      <TodayHabitCardContainer habitCheck={habitCheck}>
         <div>
-          <h3>Read one chapter of a book</h3>
-          <p>Current sequence: 3 days</p>
-          <p>Your record: 5 days</p>
+          <h3>{name}</h3>
+          <p>Current sequence: {currentSequence} days</p>
+          <p>Your record: {highestSequence} days</p>
         </div>
 
-        <ion-icon name="checkbox"></ion-icon>
-      </TodayHabitCardContainer>
-
-      <TodayHabitCardContainer>
-        <div>
-          <h3>Read one chapter of a book</h3>
-          <p>Current sequence: 3 days</p>
-          <p>Your record: 5 days</p>
-        </div>
-
-        <ion-icon name="checkbox"></ion-icon>
-      </TodayHabitCardContainer>
-
-      <TodayHabitCardContainer>
-        <div>
-          <h3>Read one chapter of a book</h3>
-          <p>Current sequence: 3 days</p>
-          <p>Your record: 5 days</p>
-        </div>
-
-        <ion-icon name="checkbox"></ion-icon>
-      </TodayHabitCardContainer>
-
-      <TodayHabitCardContainer>
-        <div>
-          <h3>Read one chapter of a book</h3>
-          <p>Current sequence: 3 days</p>
-          <p>Your record: 5 days</p>
-        </div>
-
-        <ion-icon name="checkbox"></ion-icon>
+        <ion-icon name="checkbox" onClick={() => habitDone()}></ion-icon>
       </TodayHabitCardContainer>
     </>
   );
@@ -73,6 +56,6 @@ const TodayHabitCardContainer = styled.div`
 
   ion-icon {
     font-size: 69px;
-    color: #8FC549;
+    color: ${(props) => (props.habitCheck ? "#8fc549" : "#d8d7d7")};
   }
 `;

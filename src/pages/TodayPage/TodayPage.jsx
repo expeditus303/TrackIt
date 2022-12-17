@@ -4,17 +4,31 @@ import { baseColor } from "../../constants/colors";
 import TodayHabitCard from "../../components/TodayHabitCard/TodayHabitCard"
 import Footer from "../../components/Footer/Footer";
 
+//APAGAR IMPORTS ABAIXO
+import { HABITOS_HOJE } from "../../HABITOS_HOJE";
+import { useState } from "react";
+
 export default function TodayPage() {
+  
+  const doneHabis = HABITOS_HOJE.filter((m) => (m.done === true))
+
+  
+
+  
   return (
     <>
       <NavBar />
 
       <TodayHeader>
         <h2>Monday, 17/12</h2>
-        <p>No habits completed today</p>
+        <p>{}No habits completed today</p>
       </TodayHeader>
 
-      <TodayHabitCard />
+      {HABITOS_HOJE.map((h) => (
+        <TodayHabitCard key={h.id} name={h.name} currentSequence={h.currentSequence} highestSequence={h.highestSequence} done={h.done}/>
+      ))}
+
+      
 
       <Footer />
     </>
