@@ -4,19 +4,23 @@ import styled from "styled-components";
 // APAGAR IMPORT ABAIXO
 
 export default function TodayHabitCard(props) {
-  const { name, currentSequence, highestSequence, done } = props;
+  const {
+    name,
+    currentSequence,
+    highestSequence,
+    done
+  } = props;
 
   const [habitCheck, setHabitCheck] = useState(done);
 
-  console.log(habitCheck)
-
   function habitDone() {
+    console.log(done)
     setHabitCheck(!habitCheck);
   }
 
   return (
     <>
-      <TodayHabitCardContainer habitCheck={habitCheck}>
+      <TodayHabitCardContainer habitCheck={habitCheck} currentSequence={currentSequence}>
         <div>
           <h3>{name}</h3>
           <p>Current sequence: {currentSequence} days</p>

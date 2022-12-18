@@ -9,14 +9,14 @@ export const HABITOS_HOJE = [
     {
         "id": 4,
         "name": "Surfar",
-        "done": false,
+        "done": true,
         "currentSequence": 4,
         "highestSequence": 10
     },
     {
         "id": 5,
         "name": "Correr 8km",
-        "done": true,
+        "done": false,
         "currentSequence": 8,
         "highestSequence": 8    
     }

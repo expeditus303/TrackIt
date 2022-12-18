@@ -10,7 +10,6 @@ export default function CreateNewHabitForm(props) {
 
   const [newHabitName, setNewHabitName] = useState("");
 
-  console.log(newHabitName);
 
   function daySelected(d) {
     if (selectedDays.includes(d)) {
@@ -19,7 +18,6 @@ export default function CreateNewHabitForm(props) {
     } else {
       let newArray = [...selectedDays, d];
       setSelectedDays(newArray);
-      console.log(newArray);
     }
   }
 
