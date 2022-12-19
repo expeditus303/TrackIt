@@ -36,8 +36,6 @@ export default function CreateNewHabitForm(props) {
         days: selectedDays,
       };
 
-      console.log(habitInfo)
-
       const newArray = [...newHabitList, habitInfo];
       setNewHabitList(newArray);
       setNewHabitName("");

@@ -14,11 +14,14 @@ import { useState } from "react";
 
 function App() {
 
+  const [token, setToken] = useState("")
+  console.log(token)
+
   return (
     <BrowserRouter>
       <Body>
         <GlobalStyle />
-        {/* <LoginContext.Provider value={}> */}
+        <LoginContext.Provider value={{token, setToken}}>
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/cadastro" element={<SignUpPage />} />
@@ -29,7 +32,7 @@ function App() {
             <Route path="/hoje" element={<TodayPage />} />
             <Route path="/historico" element={<History />} />
           </Routes>
-        {/* </LoginContext.Provider> */}
+        </LoginContext.Provider>
       </Body>
     </BrowserRouter>
   );

@@ -1,17 +1,21 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import LogoLoginRegister from "../../components/LogoLoginRegister/LogoLoginRegister";
 import { LoginContainer } from "./styled";
 import { URL } from "../../constants/url";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginContext } from "../../contexts/LoginContext";
 
 export default function LoginPage() {
+
+  const { setToken } = useContext(LoginContext)
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  console.log(email);
-  console.log(password);
-
+  const navigate = useNavigate()
+  
+  
   function login(event) {
     event.preventDefault();
 
@@ -20,11 +24,14 @@ export default function LoginPage() {
       password,
     };
 
-    console.log(loginInfo);
-
     const promisse = axios.post(URL + "auth/login", loginInfo);
-    promisse.then((answer) => console.log(answer.data));
+    promisse.then(success);
     promisse.catch((err) => alert(err.response.data.message));
+  }
+
+  function success(answer) {
+    navigate("/hoje")
+    setToken(answer.data.token)
   }
 
   return (
