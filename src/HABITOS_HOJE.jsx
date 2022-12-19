@@ -2,7 +2,7 @@ export const HABITOS_HOJE = [
     {
         "id": 3,
         "name": "Acordar",
-        "done": true,
+        "done": false,
         "currentSequence": 1,
         "highestSequence": 1
     },
@@ -16,7 +16,7 @@ export const HABITOS_HOJE = [
     {
         "id": 5,
         "name": "Correr 8km",
-        "done": false,
+        "done": true,
         "currentSequence": 8,
         "highestSequence": 8    
     }
