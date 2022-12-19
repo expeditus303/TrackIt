@@ -31,7 +31,7 @@ export default function HabitsPage(props) {
           Add a habit to start tracking!
         </DontHaveHabitsText>
 
-        <HabitList newHabitList={newHabitList} />
+        <HabitList newHabitList={newHabitList} setNewHabitList={setNewHabitList}/>
       </MyHabitsContainer>
 
       <Footer />

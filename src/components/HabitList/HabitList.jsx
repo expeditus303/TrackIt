@@ -3,11 +3,17 @@ import { weekdays } from "../../WEEKDAYS";
 
 
 export default function HabitList(props) {
-  const { newHabitList } = props;
+  const { newHabitList, setNewHabitList } = props;
 
   function deleteHabit(id) {
     console.log(id)
-
+    let text = "Do you want to delete it?";
+    if (window.confirm(text) == true) {
+      const deletedHabitList = newHabitList.filter((d) => d.id !== id)
+      setNewHabitList(deletedHabitList)
+    } else {
+      console.log("You canceled!")
+    }
     //enviar para a api o id
   }
 

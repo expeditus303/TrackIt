@@ -31,6 +31,7 @@ export default function CreateNewHabitForm(props) {
     
     } else {
       const habitInfo = {
+        id: newHabitName, //TALVEZ EU TENHA QUE APAGAR
         name: newHabitName,
         days: selectedDays,
       };
