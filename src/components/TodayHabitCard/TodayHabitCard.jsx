@@ -8,43 +8,63 @@ export default function TodayHabitCard(props) {
     name,
     currentSequence,
     highestSequence,
-    done
+    done,
+    completedHabitsState,
+    setCompletedHabitsState,
+    totalTasks,
+    setPercentageCompleted,
   } = props;
 
-  const [habitCheck, setHabitCheck] = useState(false);
-  const [currentSequenceState, setCurrentSequenceState] = useState(currentSequence)
-  const [highestSequenceState, setHighestSequenceState] = useState(highestSequence)
-
+  const [habitCheck, setHabitCheck] = useState(done);
+  const [currentSequenceState, setCurrentSequenceState] =
+    useState(currentSequence);
+  const [highestSequenceState, setHighestSequenceState] =
+    useState(highestSequence);
 
   function habitDone() {
     if (habitCheck === false) {
       setHabitCheck(!habitCheck);
-      const newSequence = currentSequenceState + 1
-      setCurrentSequenceState(newSequence)
+      const newSequence = currentSequenceState + 1;
+      setCurrentSequenceState(newSequence);
+      const newCompleted = completedHabitsState + 1;
+      setCompletedHabitsState(newCompleted);
+      setPercentageCompleted(((newCompleted / totalTasks) * 100).toFixed(0));
 
       if (highestSequence === currentSequence) {
-        const newHighest = highestSequence + 1
-        setHighestSequenceState(newHighest)
+        const newHighest = highestSequence + 1;
+        setHighestSequenceState(newHighest);
       }
-
     } else if (habitCheck === true) {
       setHabitCheck(!habitCheck);
-      setCurrentSequenceState(currentSequenceState - 1)
-      setHighestSequenceState(highestSequenceState - 1)
+      setCurrentSequenceState(currentSequenceState - 1);
+      setCompletedHabitsState(completedHabitsState - 1);
+      const newCompletedHabits = completedHabitsState - 1;
+      setPercentageCompleted(
+        ((newCompletedHabits / totalTasks) * 100).toFixed(0)
+      );
+      if (highestSequence === currentSequence) {
+        setHighestSequenceState(highestSequenceState - 1);
+      }
     }
-    
   }
-
-  console.log(currentSequence)
-  console.log(highestSequence)
 
   return (
     <>
-      <TodayHabitCardContainer habitCheck={habitCheck} currentSequence={currentSequence} highestSequence={highestSequence} >
+      <TodayHabitCardContainer
+        habitCheck={habitCheck}
+        currentSequence={currentSequence}
+        highestSequence={highestSequence}
+      >
         <div>
           <h3>{name}</h3>
-          <p>Current sequence: <span className="currentSequence">{currentSequenceState} days</span></p>
-          <p>Your record: <span className="highestSequence">{highestSequenceState} days</span> </p>
+          <p>
+            Current sequence:{" "}
+            <span className="currentSequence">{currentSequenceState} days</span>
+          </p>
+          <p>
+            Your record:{" "}
+            <span className="highestSequence">{highestSequenceState} days</span>{" "}
+          </p>
         </div>
 
         <ion-icon name="checkbox" onClick={() => habitDone()}></ion-icon>
@@ -78,12 +98,13 @@ const TodayHabitCardContainer = styled.div`
     color: #666666;
   }
 
-  .currentSequence{
+  .currentSequence {
     color: ${(props) => (props.habitCheck ? "#8fc549" : "#666666")};
   }
 
-  .highestSequence{
-    color: ${(props) => (props.currentSequence === props.highestSequence ? "#8fc549" : "#666666")};
+  .highestSequence {
+    color: ${(props) =>
+      props.currentSequence === props.highestSequence ? "#8fc549" : "#666666"};
   }
 
   ion-icon {

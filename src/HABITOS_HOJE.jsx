@@ -9,7 +9,7 @@ export const HABITOS_HOJE = [
     {
         "id": 4,
         "name": "Surfar",
-        "done": true,
+        "done": false,
         "currentSequence": 4,
         "highestSequence": 10
     },

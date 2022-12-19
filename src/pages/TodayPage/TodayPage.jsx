@@ -10,10 +10,11 @@ import { HABITOS_HOJE } from "../../HABITOS_HOJE";
 import { useState } from "react";
 
 export default function TodayPage() {
-  const totalTasks = HABITOS_HOJE.length;
-  const completedHabits = HABITOS_HOJE.filter((h) => h.done).length;
-  const percentage = ((completedHabits / totalTasks) * 100).toFixed(0);
+  let totalTasks = HABITOS_HOJE.length;
+  let completedHabits = HABITOS_HOJE.filter((h) => h.done).length;
+  let percentage = ((completedHabits / totalTasks) * 100).toFixed(0);
 
+  const [completedHabitsState, setCompletedHabitsState] = useState(completedHabits)
   const [percentageCompleted, setPercentageCompleted] = useState(percentage);
 
   const date = dayjs();
@@ -39,6 +40,10 @@ export default function TodayPage() {
           currentSequence={h.currentSequence}
           highestSequence={h.highestSequence}
           done={h.done}
+          completedHabitsState={completedHabitsState}
+          setCompletedHabitsState={setCompletedHabitsState}
+          totalTasks={totalTasks}
+          setPercentageCompleted={setPercentageCompleted}
         />
       ))}
 
