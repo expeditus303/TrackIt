@@ -9,8 +9,6 @@ import TodayHabitCard from "../../components/TodayHabitCard/TodayHabitCard";
 import { URL } from "../../constants/url";
 import { useContext, useEffect, useState } from "react";
 
-//APAGAR IMPORTS ABAIXO
-import { HABITOS_HOJE } from "../../HABITOS_HOJE";
 
 export default function TodayPage() {
   const [ todayHabitList, setTodayHabitList] = useState([])
@@ -21,9 +19,9 @@ export default function TodayPage() {
   let completedHabits = todayHabitList.filter((h) => h.done).length;
   // let percentage = ((completedHabits / totalTasks) * 100).toFixed(0);
   
-  const { token } = useContext(LoginContext)
-
   const date = dayjs();
+
+  const { token } = useContext(LoginContext)
 
   useEffect(() => {
     const config ={
@@ -32,7 +30,7 @@ export default function TodayPage() {
       }
     }
     
-    const promisse = axios.get(URL + "habits", config)
+    const promisse = axios.get(URL + "habits/today", config)
 
     promisse.then((answer) => setTodayHabitList(answer.data))
     promisse.catch((err) => console.log(err))

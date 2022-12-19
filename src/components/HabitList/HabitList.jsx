@@ -1,9 +1,15 @@
+import axios from "axios";
+import { useContext } from "react";
 import styled from "styled-components";
-import { weekdays } from "../../WEEKDAYS";
+import { URL } from "../../constants/url";
+import { weekdays } from "../../constants/WEEKDAYS";
+import { LoginContext } from "../../contexts/LoginContext";
 
 
 export default function HabitList(props) {
   const { newHabitList, setNewHabitList } = props;
+
+  const { token } = useContext(LoginContext)
 
   function deleteHabit(id) {
     console.log(id)
@@ -11,10 +17,20 @@ export default function HabitList(props) {
     if (window.confirm(text) == true) {
       const deletedHabitList = newHabitList.filter((d) => d.id !== id)
       setNewHabitList(deletedHabitList)
+
+      const config = {
+        headers: {
+          "Authorization" : `Bearer ${token}`
+        }
+      }
+
+      const promisse = axios.delete(URL + `habits/${id}`, config)
+      promisse.then((answer) => console.log(answer))
+      promisse.catch((err) => console.log(err))
+
     } else {
       console.log("You canceled!")
     }
-    //enviar para a api o id
   }
 
 

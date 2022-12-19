@@ -1,18 +1,34 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import CreateNewHabitForm from "../../components/CreateNewHabitForm/CreateNewHabitForm";
 import Footer from "../../components/Footer/Footer";
 import HabitList from "../../components/HabitList/HabitList";
 import NavBar from "../../components/NavBar/NavBar";
 import { accentColor, baseColor } from "../../constants/colors";
+import { URL } from "../../constants/url";
+import { LoginContext } from "../../contexts/LoginContext";
 
 export default function HabitsPage(props) {
 
-  const { HABITOS_USUARIO } = props;
-
   const [formShowUp, setFormShowUp] = useState(false);
 
-  const [newHabitList, setNewHabitList] = useState(HABITOS_USUARIO)
+  const [newHabitList, setNewHabitList] = useState([]) //loading
+
+  const { token } = useContext(LoginContext)
+
+  useEffect(() => {
+    const config = {
+      headers: {
+        "Authorization" : `Bearer ${token}`
+      }
+    }
+
+    const promisse = axios.get(URL + "habits", config)
+    promisse.then((answer) => setNewHabitList(answer.data))
+    promisse.catch((err) => console.log(err))
+
+  }, [])
 
   return (
     <>
@@ -26,7 +42,7 @@ export default function HabitsPage(props) {
 
         <CreateNewHabitForm formShowUp={formShowUp} setFormShowUp={setFormShowUp} newHabitList={newHabitList} setNewHabitList={setNewHabitList}/>
 
-        <DontHaveHabitsText HABITOS_USUARIO={HABITOS_USUARIO}>
+        <DontHaveHabitsText newHabitList={newHabitList}>
           You don't have any habits registered.<br></br>
           Add a habit to start tracking!
         </DontHaveHabitsText>
@@ -48,7 +64,7 @@ const DontHaveHabitsText = styled.p`
   line-height: 22px;
   color: #666666;
   margin-top: 19px;
-  display: ${(props) => (props.HABITOS_USUARIO.length > 0 ? "none" : "block")};
+  display: ${(props) => (props.newHabitList.length > 0 ? "none" : "block")};
 `;
 
 const MyHabitsHeader = styled.div`

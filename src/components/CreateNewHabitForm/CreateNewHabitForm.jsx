@@ -1,10 +1,15 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { accentColor } from "../../constants/colors";
-import { weekdays } from "../../WEEKDAYS";
+import { URL } from "../../constants/url";
+import { LoginContext } from "../../contexts/LoginContext";
+import { weekdays } from "../../constants/WEEKDAYS";
 
 export default function CreateNewHabitForm(props) {
   const { formShowUp, setFormShowUp, newHabitList, setNewHabitList } = props;
+
+  const { token } = useContext(LoginContext)
 
   const [selectedDays, setSelectedDays] = useState([]);
 
@@ -36,12 +41,27 @@ export default function CreateNewHabitForm(props) {
         days: selectedDays,
       };
 
+      const habitInfoSent = {
+        name: newHabitName,
+        days: selectedDays,
+      };
+
       const newArray = [...newHabitList, habitInfo];
       setNewHabitList(newArray);
       setNewHabitName("");
       setSelectedDays([]);
+      const config = {
+        headers: {
+          "Authorization" : `Bearer ${token}`
+        }
+      }
+  
+      const promisse = axios.post(URL + "habits", habitInfoSent, config)
+      promisse.then((answer) => console.log(answer))
+      promisse.catch((err) => console.log(err))
     }
-  }
+    }
+
 
   function cancelHabit() {
     setFormShowUp(false);

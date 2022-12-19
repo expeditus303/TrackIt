@@ -6,11 +6,11 @@ import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import TodayPage from "./pages/TodayPage/TodayPage";
 import GlobalStyle from "./styles/GlobalStyle";
-
-// apagar abaixo os imports
-import { HABITOS_USUARIO } from "./HABITOS_USUARIO";
 import { LoginContext } from "./contexts/LoginContext";
 import { useState } from "react";
+
+// apagar abaixo os imports
+
 
 function App() {
 
@@ -27,7 +27,7 @@ function App() {
             <Route path="/cadastro" element={<SignUpPage />} />
             <Route
               path="/habitos"
-              element={<HabitsPage HABITOS_USUARIO={HABITOS_USUARIO} />}
+              element={<HabitsPage/>}
             />
             <Route path="/hoje" element={<TodayPage />} />
             <Route path="/historico" element={<History />} />
