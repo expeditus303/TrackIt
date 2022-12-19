@@ -15,11 +15,10 @@ export default function TodayHabitCard(props) {
     setPercentageCompleted,
   } = props;
 
+
   const [habitCheck, setHabitCheck] = useState(done);
-  const [currentSequenceState, setCurrentSequenceState] =
-    useState(currentSequence);
-  const [highestSequenceState, setHighestSequenceState] =
-    useState(highestSequence);
+  const [currentSequenceState, setCurrentSequenceState] = useState(currentSequence);
+  const [highestSequenceState, setHighestSequenceState] = useState(highestSequence);
 
   function habitDone() {
     if (habitCheck === false) {
@@ -48,12 +47,15 @@ export default function TodayHabitCard(props) {
     }
   }
 
+  console.log("AQUI")
+  console.log(highestSequenceState)
+
   return (
     <>
       <TodayHabitCardContainer
         habitCheck={habitCheck}
-        currentSequence={currentSequence}
-        highestSequence={highestSequence}
+        currentSequenceState={currentSequenceState}
+        highestSequenceState={highestSequenceState}
       >
         <div>
           <h3>{name}</h3>
@@ -103,8 +105,8 @@ const TodayHabitCardContainer = styled.div`
   }
 
   .highestSequence {
-    color: ${(props) =>
-      props.currentSequence === props.highestSequence ? "#8fc549" : "#666666"};
+    color: ${(props) => 
+      props.currentSequenceState === props.highestSequenceState && props.highestSequenceState !== 0 ? "#8fc549" : "#666666"};
   }
 
   ion-icon {

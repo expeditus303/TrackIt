@@ -12,11 +12,12 @@ import { useContext, useEffect, useState } from "react";
 
 export default function TodayPage() {
   const [ todayHabitList, setTodayHabitList] = useState([])
-  const [completedHabitsState, setCompletedHabitsState] = useState()
+  const [completedHabitsState, setCompletedHabitsState] = useState(0)
   const [percentageCompleted, setPercentageCompleted] = useState();
 
   let totalTasks = todayHabitList.length;
   let completedHabits = todayHabitList.filter((h) => h.done).length;
+  console.log(completedHabits)
   // let percentage = ((completedHabits / totalTasks) * 100).toFixed(0);
   
   const date = dayjs();
@@ -36,8 +37,6 @@ export default function TodayPage() {
     promisse.catch((err) => console.log(err))
   }, [])
 
-  console.log("aqui embaixo o token")
-  console.log(token)
 
   return (
     <>
@@ -46,7 +45,7 @@ export default function TodayPage() {
       <TodayHeader>
         <h2>{date.format("dddd, DD/MM")}</h2>
         <p>
-          {completedHabits == 0
+          {completedHabitsState == 0
             ? "No habits completed today"
             : `${percentageCompleted}% of habits completed`}
         </p>
