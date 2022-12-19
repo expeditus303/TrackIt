@@ -35,8 +35,9 @@ export const LoginContainer = styled.div`
     margin-bottom: 25px;
   }
 
-  a {
+  p {
     font-size: 13.976px;
+    text-decoration-line: underline;
     color: ${accentColor};
   }
 `;

@@ -36,6 +36,8 @@ export default function CreateNewHabitForm(props) {
         days: selectedDays,
       };
 
+      console.log(habitInfo)
+
       const newArray = [...newHabitList, habitInfo];
       setNewHabitList(newArray);
       setNewHabitName("");
@@ -57,7 +59,7 @@ export default function CreateNewHabitForm(props) {
         placeholder="habit name"
         maxLength={50}
         value={newHabitName}
-        onChange={(e) => setNewHabitName([e.target.value])}
+        onChange={(e) => setNewHabitName(e.target.value)}
       />
 
       {weekdays.map((w) => (
