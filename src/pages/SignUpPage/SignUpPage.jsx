@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import LogoLoginRegister from "../../components/LogoLoginRegister/LogoLoginRegister";
 import { SignUpContainer } from "./styled";
 import { URL } from "../../constants/url";
@@ -10,6 +10,8 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
+
+  const navigate = useNavigate()
 
   function signUp(event) {
     event.preventDefault()
@@ -29,7 +31,7 @@ export default function SignUpPage() {
   function success(answer) {
     alert(`Welcome to Track It, ${name}!`)
 
-    Navigate
+    return navigate("/")
   }
 
   function errors(err) {
