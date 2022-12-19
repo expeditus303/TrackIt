@@ -54,6 +54,7 @@ export default function TodayPage() {
       {todayHabitList.map((h) => (
         <TodayHabitCard
           key={h.id}
+          id={h.id}
           name={h.name}
           currentSequence={h.currentSequence}
           highestSequence={h.highestSequence}

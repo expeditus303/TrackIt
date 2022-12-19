@@ -1,10 +1,14 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { URL } from "../../constants/url";
+import { LoginContext } from "../../contexts/LoginContext";
 
 // APAGAR IMPORT ABAIXO
 
 export default function TodayHabitCard(props) {
   const {
+    id,
     name,
     currentSequence,
     highestSequence,
@@ -15,12 +19,19 @@ export default function TodayHabitCard(props) {
     setPercentageCompleted,
   } = props;
 
-
   const [habitCheck, setHabitCheck] = useState(done);
   const [currentSequenceState, setCurrentSequenceState] = useState(currentSequence);
   const [highestSequenceState, setHighestSequenceState] = useState(highestSequence);
 
-  function habitDone() {
+  const { token } = useContext(LoginContext)
+
+  const config = {
+    headers: {
+      "Authorization" : `Bearer ${token}`
+    }
+  }
+
+  function habitDone(id) {
     if (habitCheck === false) {
       setHabitCheck(!habitCheck);
       const newSequence = currentSequenceState + 1;
@@ -29,18 +40,26 @@ export default function TodayHabitCard(props) {
       setCompletedHabitsState(newCompleted);
       setPercentageCompleted(((newCompleted / totalTasks) * 100).toFixed(0));
 
+      const promisse = axios.post(URL + `/habits/${id}/check`, {}, config)
+      promisse.then((answer) => console.log(answer))
+      promisse.catch((err) => console.log(err))
+
       if (highestSequence === currentSequence) {
         const newHighest = highestSequence + 1;
         setHighestSequenceState(newHighest);
       }
+
     } else if (habitCheck === true) {
       setHabitCheck(!habitCheck);
       setCurrentSequenceState(currentSequenceState - 1);
       setCompletedHabitsState(completedHabitsState - 1);
       const newCompletedHabits = completedHabitsState - 1;
-      setPercentageCompleted(
-        ((newCompletedHabits / totalTasks) * 100).toFixed(0)
-      );
+      setPercentageCompleted(((newCompletedHabits / totalTasks) * 100).toFixed(0))
+
+      const promisse = axios.post(URL + `/habits/${id}/uncheck`, {}, config)
+      promisse.then((answer) => console.log(answer))
+      promisse.catch((err) => console.log(err))
+
       if (highestSequence === currentSequence) {
         setHighestSequenceState(highestSequenceState - 1);
       }
@@ -65,11 +84,11 @@ export default function TodayHabitCard(props) {
           </p>
           <p>
             Your record:{" "}
-            <span className="highestSequence">{highestSequenceState} days</span>{" "}
+            <span className="highestSequence">{highestSequenceState} days</span>
           </p>
         </div>
 
-        <ion-icon name="checkbox" onClick={() => habitDone()}></ion-icon>
+        <ion-icon name="checkbox" onClick={() => habitDone(id)}></ion-icon>
       </TodayHabitCardContainer>
     </>
   );
