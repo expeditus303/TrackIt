@@ -60,9 +60,13 @@ export default function CreateNewHabitForm(props) {
       };
 
       const promisse = axios.post(URL + "habits", habitInfoSent, config);
-      promisse.then((answer) => console.log(answer));
+      promisse.then(success);
       promisse.catch((err) => alert(err.response.data));
     // }
+  }
+
+  function success(answer) {
+    setNewHabitList(answer.data)
   }
 
   function cancelHabit() {
