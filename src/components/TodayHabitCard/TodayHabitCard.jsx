@@ -17,6 +17,9 @@ export default function TodayHabitCard(props) {
     setCompletedHabitsState,
     totalTasks,
     setPercentageCompleted,
+    todayHabitList,
+    setRefresh,
+    refresh
   } = props;
 
   const [habitCheck, setHabitCheck] = useState(done);
@@ -34,40 +37,32 @@ export default function TodayHabitCard(props) {
   function habitDone(id) {
     if (habitCheck === false) {
       setHabitCheck(!habitCheck);
-      const newSequence = currentSequenceState + 1;
-      setCurrentSequenceState(newSequence);
-      const newCompleted = completedHabitsState + 1;
-      setCompletedHabitsState(newCompleted);
-      setPercentageCompleted(((newCompleted / totalTasks) * 100).toFixed(0));
+      
+      const newSequence = currentSequence + 1
+      setCurrentSequenceState(newSequence)
+
+      const newHighest = highestSequence + 1
+      setHighestSequenceState(newHighest)
 
       const promisse = axios.post(URL + `/habits/${id}/check`, {}, config)
-      promisse.then((answer) => console.log(answer))
+      promisse.then((answer) => setRefresh(!refresh))
       promisse.catch((err) => console.log(err))
-
-      if (highestSequence === currentSequence) {
-        const newHighest = highestSequence + 1;
-        setHighestSequenceState(newHighest);
-      }
 
     } else if (habitCheck === true) {
       setHabitCheck(!habitCheck);
-      setCurrentSequenceState(currentSequenceState - 1);
-      setCompletedHabitsState(completedHabitsState - 1);
-      const newCompletedHabits = completedHabitsState - 1;
-      setPercentageCompleted(((newCompletedHabits / totalTasks) * 100).toFixed(0))
 
+      const newSequence = currentSequence - 1
+      setCurrentSequenceState(newSequence)
+
+      const newHighest = highestSequence - 1
+      setHighestSequenceState(newHighest)
+      
       const promisse = axios.post(URL + `/habits/${id}/uncheck`, {}, config)
-      promisse.then((answer) => console.log(answer))
+      promisse.then((answer) => setRefresh(!refresh))
       promisse.catch((err) => console.log(err))
-
-      if (highestSequence === currentSequence) {
-        setHighestSequenceState(highestSequenceState - 1);
-      }
     }
   }
 
-  console.log("AQUI")
-  console.log(highestSequenceState)
 
   return (
     <>

@@ -15,13 +15,14 @@ import { useState } from "react";
 function App() {
 
   const [token, setToken] = useState("")
-  console.log(token)
+
+  const [image, setImage] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
 
   return (
     <BrowserRouter>
       <Body>
         <GlobalStyle />
-        <LoginContext.Provider value={{token, setToken}}>
+        <LoginContext.Provider value={{token, setToken, image, setImage}}>
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/cadastro" element={<SignUpPage />} />

@@ -8,7 +8,7 @@ import { LoginContext } from "../../contexts/LoginContext";
 
 export default function LoginPage() {
 
-  const { setToken } = useContext(LoginContext)
+  const { setToken, setImage } = useContext(LoginContext)
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,6 +32,7 @@ export default function LoginPage() {
   function success(answer) {
     navigate("/hoje")
     setToken(answer.data.token)
+    setImage(answer.data.image)
   }
 
   return (

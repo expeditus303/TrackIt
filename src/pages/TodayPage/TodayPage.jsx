@@ -13,13 +13,14 @@ import { useContext, useEffect, useState } from "react";
 export default function TodayPage() {
   const [ todayHabitList, setTodayHabitList] = useState([])
   const [completedHabitsState, setCompletedHabitsState] = useState(0)
-  const [percentageCompleted, setPercentageCompleted] = useState();
+  const [percentageCompleted, setPercentageCompleted] = useState(0);
 
-  let totalTasks = todayHabitList.length;
-  let completedHabits = todayHabitList.filter((h) => h.done).length;
-  console.log(completedHabits)
-  // let percentage = ((completedHabits / totalTasks) * 100).toFixed(0);
   
+  
+  const [refresh, setRefresh] = useState(false)
+
+  
+ 
   const date = dayjs();
 
   const { token } = useContext(LoginContext)
@@ -33,10 +34,22 @@ export default function TodayPage() {
     
     const promisse = axios.get(URL + "habits/today", config)
 
-    promisse.then((answer) => setTodayHabitList(answer.data))
+    promisse.then(success)
     promisse.catch((err) => console.log(err))
-  }, [])
 
+  }, [refresh])
+
+  function success(answer) {
+    setTodayHabitList(answer.data)
+    const totalHabits = answer.data.length
+    const completedHabits = answer.data.filter((h) => h.done).length;
+    const percentage = ((completedHabits / totalHabits) * 100).toFixed(0);
+    console.log(percentage + "%")
+    setPercentageCompleted(percentage)
+    console.log((answer.data))
+  }
+
+  console.log(refresh)
 
   return (
     <>
@@ -45,7 +58,7 @@ export default function TodayPage() {
       <TodayHeader>
         <h2>{date.format("dddd, DD/MM")}</h2>
         <p>
-          {completedHabitsState == 0
+          {percentageCompleted == 0
             ? "No habits completed today"
             : `${percentageCompleted}% of habits completed`}
         </p>
@@ -61,8 +74,11 @@ export default function TodayPage() {
           done={h.done}
           completedHabitsState={completedHabitsState}
           setCompletedHabitsState={setCompletedHabitsState}
-          totalTasks={totalTasks}
+          // totalTasks={totalTasks}
+          todayHabitList={todayHabitList}
           setPercentageCompleted={setPercentageCompleted}
+          setRefresh={setRefresh}
+          refresh={refresh}
         />
       ))}
 
