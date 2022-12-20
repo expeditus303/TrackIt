@@ -58,6 +58,7 @@ export default function CreateNewHabitForm(props) {
     setNewHabitName("");
     setSelectedDays([]);
     setFormShowUp(false);
+    setLoading("")
   }
 
   function cancelHabit() {

@@ -60,6 +60,8 @@ export default function TodayPage() {
 
   console.log(refresh);
 
+  console.log(percentageCompleted)
+
   return (
     <>
       <NavBar />
@@ -67,7 +69,7 @@ export default function TodayPage() {
       <TodayHeader>
         <h2 data-test="today">{date.format("dddd, DD/MM")}</h2>
         <p data-test="today-counter">
-          {percentageCompleted == 0
+          {percentageCompleted == 0 || isNaN(percentageCompleted)
             ? "Nenhum hábito concluído ainda"
             : `${percentageCompleted}% of habits completed`}
         </p>
