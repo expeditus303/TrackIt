@@ -36,22 +36,10 @@ export default function CreateNewHabitForm(props) {
     // } else {
       setLoading(undefined);
 
-      const habitInfo = {
-        id: newHabitName,
-        name: newHabitName,
-        days: selectedDays,
-      };
-
       const habitInfoSent = {
         name: newHabitName,
         days: selectedDays,
       };
-
-      const newArray = [...newHabitList, habitInfo];
-      setNewHabitList(newArray);
-      setNewHabitName("");
-      setSelectedDays([]);
-      setFormShowUp(false);
 
       const config = {
         headers: {
@@ -67,6 +55,9 @@ export default function CreateNewHabitForm(props) {
 
   function success(answer) {
     setNewHabitList(answer.data)
+    setNewHabitName("");
+    setSelectedDays([]);
+    setFormShowUp(false);
   }
 
   function cancelHabit() {
