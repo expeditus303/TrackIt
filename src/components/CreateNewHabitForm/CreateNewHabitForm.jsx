@@ -69,7 +69,7 @@ export default function CreateNewHabitForm(props) {
 
   if (loading === undefined) {
     return (
-      <CreateNewHabitFormContainer formShowUp={formShowUp}>
+      <CreateNewHabitFormContainer formShowUp={formShowUp} data-test="habit-create-container">
         <input
           type="text"
           name="habitName"
