@@ -29,11 +29,11 @@ export default function CreateNewHabitForm(props) {
   }
 
   function saveHabit() {
-    if (newHabitName.length === 0) {
-      alert("Please, insert a habit.");
-    } else if (selectedDays.length === 0) {
-      alert("Please, select at least one day for your habit.");
-    } else {
+    // if (newHabitName.length === 0) {
+    //   alert("Please, insert a habit.");
+    // } else if (selectedDays.length === 0) {
+    //   alert("Please, select at least one day for your habit.");
+    // } else {
       setLoading(undefined);
 
       const habitInfo = {
@@ -62,7 +62,7 @@ export default function CreateNewHabitForm(props) {
       const promisse = axios.post(URL + "habits", habitInfoSent, config);
       promisse.then((answer) => console.log(answer));
       promisse.catch((err) => alert(err.response.data));
-    }
+    // }
   }
 
   function cancelHabit() {
@@ -94,10 +94,10 @@ export default function CreateNewHabitForm(props) {
         ))}
 
         <div className="submitContainer">
-          <button id="cancel" onClick={cancelHabit}>
+          <button id="cancel" disabled onClick={cancelHabit}>
             Cancel
           </button>
-          <button id="save" onClick={saveHabit}>
+          <button id="save" disabled onClick={saveHabit}>
             <ThreeDots
               height="25.969"
               width="80"

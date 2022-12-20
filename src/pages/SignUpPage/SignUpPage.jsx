@@ -99,7 +99,7 @@ export default function SignUpPage() {
               data-test="user-image-input"
             />
 
-            <button type="submit" data-test="signup-btn">
+            <button type="submit" disabled data-test="signup-btn">
               {" "}
               <ThreeDots
                 height="25.969"

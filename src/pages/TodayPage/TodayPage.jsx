@@ -9,47 +9,56 @@ import TodayHabitCard from "../../components/TodayHabitCard/TodayHabitCard";
 import { URL } from "../../constants/url";
 import { useContext, useEffect, useState } from "react";
 
-
 export default function TodayPage() {
-  const [ todayHabitList, setTodayHabitList] = useState([])
-  const [completedHabitsState, setCompletedHabitsState] = useState(0)
+  const [todayHabitList, setTodayHabitList] = useState([]);
+  const [completedHabitsState, setCompletedHabitsState] = useState(0);
   const [percentageCompleted, setPercentageCompleted] = useState(0);
 
-  
-  
-  const [refresh, setRefresh] = useState(false)
+  const [refresh, setRefresh] = useState(false);
 
-  
- 
   const date = dayjs();
+  var updateLocale = require("dayjs/plugin/updateLocale");
 
-  const { token } = useContext(LoginContext)
+  dayjs.extend(updateLocale);
+
+  dayjs.updateLocale("en", {
+    weekdays: [
+      "Domingo",
+      "Segunda",
+      "Terça",
+      "Quarta",
+      "Quinta",
+      "Sexta",
+      "Sábado",
+    ],
+  });
+
+  const { token } = useContext(LoginContext);
 
   useEffect(() => {
-    const config ={
+    const config = {
       headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    }
-    
-    const promisse = axios.get(URL + "habits/today", config)
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-    promisse.then(success)
-    promisse.catch((err) => console.log(err))
+    const promisse = axios.get(URL + "habits/today", config);
 
-  }, [refresh])
+    promisse.then(success);
+    promisse.catch((err) => console.log(err));
+  }, [refresh]);
 
   function success(answer) {
-    setTodayHabitList(answer.data)
-    const totalHabits = answer.data.length
+    setTodayHabitList(answer.data);
+    const totalHabits = answer.data.length;
     const completedHabits = answer.data.filter((h) => h.done).length;
     const percentage = ((completedHabits / totalHabits) * 100).toFixed(0);
-    console.log(percentage + "%")
-    setPercentageCompleted(percentage)
-    console.log((answer.data))
+    console.log(percentage + "%");
+    setPercentageCompleted(percentage);
+    console.log(answer.data);
   }
 
-  console.log(refresh)
+  console.log(refresh);
 
   return (
     <>
@@ -59,7 +68,7 @@ export default function TodayPage() {
         <h2 data-test="today">{date.format("dddd, DD/MM")}</h2>
         <p data-test="today-counter">
           {percentageCompleted == 0
-            ? "No habits completed today"
+            ? "Nenhum hábito concluído ainda"
             : `${percentageCompleted}% of habits completed`}
         </p>
       </TodayHeader>

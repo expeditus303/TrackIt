@@ -64,7 +64,7 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               disabled
             />
-            <button type="submit">
+            <button type="submit" disabled>
               {" "}
               <ThreeDots
                 height="25.969"
