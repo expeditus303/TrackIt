@@ -78,6 +78,7 @@ export default function CreateNewHabitForm(props) {
           value={newHabitName}
           onChange={(e) => setNewHabitName(e.target.value)}
           disabled
+          data-test="habit-name-input"
         />
 
         {weekdays.map((w) => (
@@ -86,16 +87,17 @@ export default function CreateNewHabitForm(props) {
             onClick={() => daySelected(w.id)}
             id={selectedDays.includes(w.id) ? "selected" : ""}
             disabled
+            data-test="habit-day"
           >
             {w.day}
           </button>
         ))}
 
         <div className="submitContainer">
-          <button id="cancel" disabled onClick={cancelHabit}>
+          <button id="cancel" disabled onClick={cancelHabit} data-test="habit-create-cancel-btn">
             Cancel
           </button>
-          <button id="save" disabled onClick={saveHabit}>
+          <button id="save" disabled onClick={saveHabit} data-test="habit-create-save-btn">
             <ThreeDots
               height="25.969"
               width="80"
