@@ -5,19 +5,21 @@ import { LoginContainer } from "./styled";
 import { URL } from "../../constants/url";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginContext } from "../../contexts/LoginContext";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function LoginPage() {
-
-  const { setToken, setImage } = useContext(LoginContext)
+  const { token, setToken, setImage } = useContext(LoginContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [disable, setDisable] = useState(false);
 
-  const navigate = useNavigate()
-  
-  
+  const navigate = useNavigate();
+
   function login(event) {
     event.preventDefault();
+
+    setToken(undefined);
 
     const loginInfo = {
       email,
@@ -26,13 +28,63 @@ export default function LoginPage() {
 
     const promisse = axios.post(URL + "auth/login", loginInfo);
     promisse.then(success);
-    promisse.catch((err) => alert(err.response.data.message));
+    promisse.catch(error);
   }
 
   function success(answer) {
-    navigate("/hoje")
-    setToken(answer.data.token)
-    setImage(answer.data.image)
+    navigate("/hoje");
+    setToken(answer.data.token);
+    setImage(answer.data.image);
+  }
+
+  function error(err) {
+    alert(err.response.data.message)
+    setToken("")
+  }
+
+  if (token === undefined) {
+    return (
+      <>
+        <LogoLoginRegister />
+        <LoginContainer>
+          <form onSubmit={login}>
+            <input
+              type="email"
+              name="email"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled
+              
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled
+            />
+            <button type="submit">
+              {" "}
+              <ThreeDots
+                height="25.969"
+                width="80"
+                radius="9"
+                color="white"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+              />
+            </button>
+          </form>
+          <Link to={"/cadastro"}>
+            <p>Don't have an account yet? Sign Up!</p>
+          </Link>
+        </LoginContainer>
+      </>
+    );
   }
 
   return (
@@ -46,6 +98,7 @@ export default function LoginPage() {
             placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled={disable}
           />
           <input
             type="password"

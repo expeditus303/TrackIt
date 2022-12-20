@@ -5,16 +5,18 @@ import { accentColor } from "../../constants/colors";
 import { URL } from "../../constants/url";
 import { LoginContext } from "../../contexts/LoginContext";
 import { weekdays } from "../../constants/WEEKDAYS";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function CreateNewHabitForm(props) {
   const { formShowUp, setFormShowUp, newHabitList, setNewHabitList } = props;
 
-  const { token } = useContext(LoginContext)
+  const { token } = useContext(LoginContext);
 
   const [selectedDays, setSelectedDays] = useState([]);
 
   const [newHabitName, setNewHabitName] = useState("");
 
+  const [loading, setLoading] = useState("");
 
   function daySelected(d) {
     if (selectedDays.includes(d)) {
@@ -27,16 +29,15 @@ export default function CreateNewHabitForm(props) {
   }
 
   function saveHabit() {
-    
     if (newHabitName.length === 0) {
       alert("Please, insert a habit.");
-
     } else if (selectedDays.length === 0) {
       alert("Please, select at least one day for your habit.");
-    
     } else {
+      setLoading(undefined);
+
       const habitInfo = {
-        id: newHabitName, //TALVEZ EU TENHA QUE APAGAR
+        id: newHabitName,
         name: newHabitName,
         days: selectedDays,
       };
@@ -50,23 +51,67 @@ export default function CreateNewHabitForm(props) {
       setNewHabitList(newArray);
       setNewHabitName("");
       setSelectedDays([]);
+      setFormShowUp(false);
+
       const config = {
         headers: {
-          "Authorization" : `Bearer ${token}`
-        }
-      }
-  
-      const promisse = axios.post(URL + "habits", habitInfoSent, config)
-      promisse.then((answer) => console.log(answer))
-      promisse.catch((err) => console.log(err))
-    }
-    }
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
+      const promisse = axios.post(URL + "habits", habitInfoSent, config);
+      promisse.then((answer) => console.log(answer));
+      promisse.catch((err) => alert(err.response.data));
+    }
+  }
 
   function cancelHabit() {
     setFormShowUp(false);
-    setNewHabitName("");
-    setSelectedDays([]);
+  }
+
+  if (loading === undefined) {
+    return (
+      <CreateNewHabitFormContainer formShowUp={formShowUp}>
+        <input
+          type="text"
+          name="habitName"
+          placeholder="habit name"
+          maxLength={50}
+          value={newHabitName}
+          onChange={(e) => setNewHabitName(e.target.value)}
+          disabled
+        />
+
+        {weekdays.map((w) => (
+          <button
+            key={w.id}
+            onClick={() => daySelected(w.id)}
+            id={selectedDays.includes(w.id) ? "selected" : ""}
+            disabled
+          >
+            {w.day}
+          </button>
+        ))}
+
+        <div className="submitContainer">
+          <button id="cancel" onClick={cancelHabit}>
+            Cancel
+          </button>
+          <button id="save" onClick={saveHabit}>
+            <ThreeDots
+              height="25.969"
+              width="80"
+              radius="9"
+              color="white"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          </button>
+        </div>
+      </CreateNewHabitFormContainer>
+    );
   }
 
   return (
@@ -160,6 +205,9 @@ const CreateNewHabitFormContainer = styled.div`
     color: #ffffff;
     margin-left: 23px;
     margin-right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   #cancel {

@@ -33,6 +33,8 @@ export const LoginContainer = styled.div`
     color: #ffffff;
     line-height: 26px;
     margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
   }
 
   p {
