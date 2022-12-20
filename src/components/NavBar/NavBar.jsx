@@ -8,7 +8,7 @@ export default function NavBar() {
     const {image} = useContext(LoginContext)
 
     return (
-        <NavBarContainer>
+        <NavBarContainer data-test="header">
         <h1>TrackIt</h1>
         <img src={image} alt="" />
         </NavBarContainer>

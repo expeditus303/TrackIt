@@ -64,6 +64,7 @@ export default function SignUpPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               disabled
+              data-test="email-input"
             />
 
             <input
@@ -74,6 +75,8 @@ export default function SignUpPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               disabled
+              data-test="password-input"
+
             />
             <input
               type="text"
@@ -83,6 +86,7 @@ export default function SignUpPage() {
               onChange={(e) => setName(e.target.value)}
               required
               disabled
+              data-test="user-name-input"
             />
             <input
               type="url"
@@ -92,9 +96,10 @@ export default function SignUpPage() {
               onChange={(e) => setImage(e.target.value)}
               required
               disabled
+              data-test="user-image-input"
             />
 
-            <button type="submit">
+            <button type="submit" data-test="signup-btn">
               {" "}
               <ThreeDots
                 height="25.969"
@@ -109,7 +114,7 @@ export default function SignUpPage() {
             </button>
           </form>
           <Link to={"/"}>
-            <p>Already have an account? Sign in!</p>
+            <p data-test="login-link">Already have an account? Sign in!</p>
           </Link>
         </SignUpContainer>
       </>
@@ -129,6 +134,7 @@ export default function SignUpPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            data-test="email-input"
           />
 
           <input
@@ -138,6 +144,7 @@ export default function SignUpPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            data-test="password-input"
           />
           <input
             type="text"
@@ -146,6 +153,7 @@ export default function SignUpPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            data-test="user-name-input"
           />
           <input
             type="url"
@@ -154,12 +162,13 @@ export default function SignUpPage() {
             value={image}
             onChange={(e) => setImage(e.target.value)}
             required
+            data-test="user-image-input"
           />
 
-          <button type="submit">Create an account</button>
+          <button type="submit" data-test="signup-btn">Create an account</button>
         </form>
         <Link to={"/"}>
-          <p>Already have an account? Sign in!</p>
+          <p data-test="login-link">Already have an account? Sign in!</p>
         </Link>
       </SignUpContainer>
     </>

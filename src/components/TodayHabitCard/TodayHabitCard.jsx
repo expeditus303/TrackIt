@@ -70,20 +70,21 @@ export default function TodayHabitCard(props) {
         habitCheck={habitCheck}
         currentSequenceState={currentSequenceState}
         highestSequenceState={highestSequenceState}
+        data-test="today-habit-container"
       >
         <div>
-          <h3>{name}</h3>
-          <p>
+          <h3 data-test="today-habit-name">{name}</h3>
+          <p data-test="today-habit-sequence">
             Current sequence:{" "}
             <span className="currentSequence">{currentSequenceState} days</span>
           </p>
-          <p>
+          <p data-test="today-habit-record">
             Your record:{" "}
             <span className="highestSequence">{highestSequenceState} days</span>
           </p>
         </div>
 
-        <ion-icon name="checkbox" onClick={() => habitDone(id)}></ion-icon>
+        <ion-icon name="checkbox" onClick={() => habitDone(id)} data-test="today-habit-check-btn"></ion-icon>
       </TodayHabitCardContainer>
     </>
   );

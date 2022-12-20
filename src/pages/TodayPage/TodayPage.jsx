@@ -56,8 +56,8 @@ export default function TodayPage() {
       <NavBar />
 
       <TodayHeader>
-        <h2>{date.format("dddd, DD/MM")}</h2>
-        <p>
+        <h2 data-test="today">{date.format("dddd, DD/MM")}</h2>
+        <p data-test="today-counter">
           {percentageCompleted == 0
             ? "No habits completed today"
             : `${percentageCompleted}% of habits completed`}

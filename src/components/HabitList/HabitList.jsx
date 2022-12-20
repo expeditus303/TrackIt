@@ -37,14 +37,14 @@ export default function HabitList(props) {
   return (
     <HabitsListContainer>
       {newHabitList.map((h) => (
-        <HabitCard key={h.id}>
+        <HabitCard key={h.id} data-test="habit-container">
           <div>
-            <h3>{h.name}</h3>
-            <ion-icon name="trash-outline" onClick={() => deleteHabit(h.id)}></ion-icon>
+            <h3 data-test="habit-name">{h.name}</h3>
+            <ion-icon name="trash-outline" onClick={() => deleteHabit(h.id)} data-test="habit-delete-btn"></ion-icon>
           </div>
 
           {weekdays.map((w) => (
-            <button key={w.id} id={h.days.includes(w.id) ? "selected" : ""}>
+            <button key={w.id} id={h.days.includes(w.id) ? "selected" : ""} data-test="habit-day">
               {w.day}
             </button>
           ))}

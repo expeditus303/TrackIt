@@ -55,7 +55,6 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled
-              
             />
             <input
               type="password"
@@ -98,7 +97,7 @@ export default function LoginPage() {
             placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            disabled={disable}
+            data-test="email-input"
           />
           <input
             type="password"
@@ -106,11 +105,12 @@ export default function LoginPage() {
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            data-test="password-input"
           />
-          <button type="submit">Log In</button>
+          <button type="submit" data-test="login-btn">Log In</button>
         </form>
-        <Link to={"/cadastro"}>
-          <p>Don't have an account yet? Sign Up!</p>
+        <Link to={"/cadastro"} >
+          <p data-test="signup-link">Don't have an account yet? Sign Up!</p>
         </Link>
       </LoginContainer>
     </>

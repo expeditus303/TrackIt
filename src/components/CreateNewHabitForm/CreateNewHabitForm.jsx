@@ -115,7 +115,7 @@ export default function CreateNewHabitForm(props) {
   }
 
   return (
-    <CreateNewHabitFormContainer formShowUp={formShowUp}>
+    <CreateNewHabitFormContainer formShowUp={formShowUp} data-test="habit-create-container">
       <input
         type="text"
         name="habitName"
@@ -123,6 +123,7 @@ export default function CreateNewHabitForm(props) {
         maxLength={50}
         value={newHabitName}
         onChange={(e) => setNewHabitName(e.target.value)}
+        data-test="habit-name-input"
       />
 
       {weekdays.map((w) => (
@@ -130,16 +131,17 @@ export default function CreateNewHabitForm(props) {
           key={w.id}
           onClick={() => daySelected(w.id)}
           id={selectedDays.includes(w.id) ? "selected" : ""}
+          data-test="habit-day"
         >
           {w.day}
         </button>
       ))}
 
       <div className="submitContainer">
-        <button id="cancel" onClick={cancelHabit}>
+        <button id="cancel" onClick={cancelHabit} data-test="habit-create-cancel-btn">
           Cancel
         </button>
-        <button id="save" onClick={saveHabit}>
+        <button id="save" onClick={saveHabit} data-test="habit-create-save-btn">
           Save
         </button>
       </div>
