@@ -94,7 +94,11 @@ export default function SignUpPage() {
               disabled
             />
 
+<<<<<<< HEAD
             <button type="submit" disabled data-test="signup-btn">
+=======
+            <button type="submit">
+>>>>>>> parent of 315a638 (data test 1)
               {" "}
               <ThreeDots
                 height="25.969"
