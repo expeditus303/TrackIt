@@ -67,15 +67,9 @@ export default function TodayPage() {
       <NavBar />
 
       <TodayHeader>
-<<<<<<< HEAD
         <h2 data-test="today">{date.format("dddd, DD/MM")}</h2>
         <p data-test="today-counter">
           {percentageCompleted == 0 || isNaN(percentageCompleted)
-=======
-        <h2>{date.format("dddd, DD/MM")}</h2>
-        <p>
-          {percentageCompleted == 0
->>>>>>> parent of 315a638 (data test 1)
             ? "No habits completed today"
             : `${percentageCompleted}% of habits completed`}
         </p>

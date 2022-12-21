@@ -10,7 +10,7 @@ export default function History() {
 
       <HistoryContainer>
         <h2>History</h2>
-        <p>Soon you will be able to see the history of your habits here!</p>
+        <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
       </HistoryContainer>
 
       <Footer />

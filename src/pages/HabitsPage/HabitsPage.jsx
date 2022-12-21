@@ -35,7 +35,12 @@ export default function HabitsPage(props) {
       <MyHabitsContainer>
         <MyHabitsHeader>
           <h2>My habits</h2>
-          <button onClick={() => setFormShowUp(!formShowUp)}>+</button>
+          <button
+            onClick={() => setFormShowUp(!formShowUp)}
+            data-test="habit-create-btn"
+          >
+            +
+          </button>
         </MyHabitsHeader>
 
         <CreateNewHabitForm
