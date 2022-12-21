@@ -10,25 +10,23 @@ import { URL } from "../../constants/url";
 import { LoginContext } from "../../contexts/LoginContext";
 
 export default function HabitsPage(props) {
-
   const [formShowUp, setFormShowUp] = useState(false);
 
-  const [newHabitList, setNewHabitList] = useState([]) //loading
+  const [newHabitList, setNewHabitList] = useState([]); //loading
 
-  const { token } = useContext(LoginContext)
+  const { token } = useContext(LoginContext);
 
   useEffect(() => {
     const config = {
       headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    }
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-    const promisse = axios.get(URL + "habits", config)
-    promisse.then((answer) => setNewHabitList(answer.data))
-    promisse.catch((err) => console.log(err))
-
-  }, [])
+    const promisse = axios.get(URL + "habits", config);
+    promisse.then((answer) => setNewHabitList(answer.data));
+    promisse.catch((err) => console.log(err));
+  }, []);
 
   return (
     <>
@@ -37,17 +35,25 @@ export default function HabitsPage(props) {
       <MyHabitsContainer>
         <MyHabitsHeader>
           <h2>My habits</h2>
-          <button onClick={() => setFormShowUp(!formShowUp)} data-test="habit-create-btn">+</button>
+          <button onClick={() => setFormShowUp(!formShowUp)}>+</button>
         </MyHabitsHeader>
 
-        <CreateNewHabitForm formShowUp={formShowUp} setFormShowUp={setFormShowUp} newHabitList={newHabitList} setNewHabitList={setNewHabitList}/>
+        <CreateNewHabitForm
+          formShowUp={formShowUp}
+          setFormShowUp={setFormShowUp}
+          newHabitList={newHabitList}
+          setNewHabitList={setNewHabitList}
+        />
 
         <DontHaveHabitsText newHabitList={newHabitList}>
-          You don't have any habits registered.<br></br>
-          Add a habit to start tracking!
+          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+          começar a trackear!
         </DontHaveHabitsText>
 
-        <HabitList newHabitList={newHabitList} setNewHabitList={setNewHabitList}/>
+        <HabitList
+          newHabitList={newHabitList}
+          setNewHabitList={setNewHabitList}
+        />
       </MyHabitsContainer>
 
       <Footer />

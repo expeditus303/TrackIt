@@ -4,17 +4,17 @@ import { accentColor } from "../../constants/colors";
 
 export default function Footer() {
   return (
-    <FooterContainer data-test="menu">
+    <FooterContainer>
       <Link to="/habitos">
-        <button data-test="habit-link">Habits</button>
+        <button>Habits</button>
       </Link>
 
       <Link to="/hoje">
-        <button id="today" data-test="today-link">Today</button>
+        <button id="today">Today</button>
       </Link>
 
       <Link to="/historico">
-        <button data-test="history-link">History</button>
+        <button>History</button>
       </Link>
     </FooterContainer>
   );

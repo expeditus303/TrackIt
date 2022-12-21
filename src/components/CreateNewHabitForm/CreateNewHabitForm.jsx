@@ -29,29 +29,17 @@ export default function CreateNewHabitForm(props) {
   }
 
   function saveHabit() {
-    if (newHabitName.length === 0) {
-      alert("Please, insert a habit.");
-    } else if (selectedDays.length === 0) {
-      alert("Please, select at least one day for your habit.");
-    } else {
+    // if (newHabitName.length === 0) {
+    //   alert("Please, insert a habit.");
+    // } else if (selectedDays.length === 0) {
+    //   alert("Please, select at least one day for your habit.");
+    // } else {
       setLoading(undefined);
-
-      const habitInfo = {
-        id: newHabitName,
-        name: newHabitName,
-        days: selectedDays,
-      };
 
       const habitInfoSent = {
         name: newHabitName,
         days: selectedDays,
       };
-
-      const newArray = [...newHabitList, habitInfo];
-      setNewHabitList(newArray);
-      setNewHabitName("");
-      setSelectedDays([]);
-      setFormShowUp(false);
 
       const config = {
         headers: {
@@ -60,9 +48,19 @@ export default function CreateNewHabitForm(props) {
       };
 
       const promisse = axios.post(URL + "habits", habitInfoSent, config);
-      promisse.then((answer) => console.log(answer));
+      promisse.then(success);
       promisse.catch((err) => alert(err.response.data));
-    }
+    // }
+  }
+
+  function success(answer) {
+    const newArray = [...newHabitList, answer.data]
+    setNewHabitList(newArray)
+    console.log(answer.data)
+    setNewHabitName("");
+    setSelectedDays([]);
+    setFormShowUp(false);
+    setLoading("")
   }
 
   function cancelHabit() {
@@ -71,7 +69,7 @@ export default function CreateNewHabitForm(props) {
 
   if (loading === undefined) {
     return (
-      <CreateNewHabitFormContainer formShowUp={formShowUp}>
+      <CreateNewHabitFormContainer formShowUp={formShowUp} data-test="habit-create-container">
         <input
           type="text"
           name="habitName"
@@ -80,6 +78,7 @@ export default function CreateNewHabitForm(props) {
           value={newHabitName}
           onChange={(e) => setNewHabitName(e.target.value)}
           disabled
+          data-test="habit-name-input"
         />
 
         {weekdays.map((w) => (
@@ -88,16 +87,17 @@ export default function CreateNewHabitForm(props) {
             onClick={() => daySelected(w.id)}
             id={selectedDays.includes(w.id) ? "selected" : ""}
             disabled
+            data-test="habit-day"
           >
             {w.day}
           </button>
         ))}
 
         <div className="submitContainer">
-          <button id="cancel" onClick={cancelHabit}>
+          <button id="cancel" disabled onClick={cancelHabit} data-test="habit-create-cancel-btn">
             Cancel
           </button>
-          <button id="save" onClick={saveHabit}>
+          <button id="save" disabled onClick={saveHabit} data-test="habit-create-save-btn">
             <ThreeDots
               height="25.969"
               width="80"
@@ -115,7 +115,7 @@ export default function CreateNewHabitForm(props) {
   }
 
   return (
-    <CreateNewHabitFormContainer formShowUp={formShowUp} data-test="habit-create-container">
+    <CreateNewHabitFormContainer formShowUp={formShowUp}>
       <input
         type="text"
         name="habitName"
@@ -123,7 +123,6 @@ export default function CreateNewHabitForm(props) {
         maxLength={50}
         value={newHabitName}
         onChange={(e) => setNewHabitName(e.target.value)}
-        data-test="habit-name-input"
       />
 
       {weekdays.map((w) => (
@@ -131,17 +130,16 @@ export default function CreateNewHabitForm(props) {
           key={w.id}
           onClick={() => daySelected(w.id)}
           id={selectedDays.includes(w.id) ? "selected" : ""}
-          data-test="habit-day"
         >
           {w.day}
         </button>
       ))}
 
       <div className="submitContainer">
-        <button id="cancel" onClick={cancelHabit} data-test="habit-create-cancel-btn">
+        <button id="cancel" onClick={cancelHabit}>
           Cancel
         </button>
-        <button id="save" onClick={saveHabit} data-test="habit-create-save-btn">
+        <button id="save" onClick={saveHabit}>
           Save
         </button>
       </div>
