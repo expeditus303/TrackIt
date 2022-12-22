@@ -28,4 +28,8 @@ export const NavBarContainer = styled.div`
     height: 51px;
     border-radius: 98.5px;
   }
+
+  a {
+    text-decoration: none;
+  }
 `;
