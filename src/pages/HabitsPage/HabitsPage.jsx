@@ -51,8 +51,8 @@ export default function HabitsPage(props) {
         />
 
         <DontHaveHabitsText newHabitList={newHabitList}>
-          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
-          começar a trackear!
+          You don't have any habits registered.<br></br>
+          Add a habit to start tracking!
         </DontHaveHabitsText>
 
         <HabitList
@@ -81,6 +81,7 @@ const DontHaveHabitsText = styled.p`
 const MyHabitsHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   h2 {
     font-size: 22.976px;
     line-height: 29px;

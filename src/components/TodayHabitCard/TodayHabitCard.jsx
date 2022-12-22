@@ -13,18 +13,16 @@ export default function TodayHabitCard(props) {
     currentSequence,
     highestSequence,
     done,
-    completedHabitsState,
-    setCompletedHabitsState,
-    totalTasks,
     setPercentageCompleted,
     todayHabitList,
-    setRefresh,
-    refresh
+    increasePercentageWithoutApi,
+    decreasePercentageWithoutApi
   } = props;
 
   const [habitCheck, setHabitCheck] = useState(done);
   const [currentSequenceState, setCurrentSequenceState] = useState(currentSequence);
   const [highestSequenceState, setHighestSequenceState] = useState(highestSequence);
+
 
   const { token } = useContext(LoginContext)
 
@@ -34,34 +32,54 @@ export default function TodayHabitCard(props) {
     }
   }
 
+
   function habitDone(id) {
-    if (habitCheck === false) {
+    if (done === false) {
       setHabitCheck(!habitCheck);
       
-      const newSequence = currentSequence + 1
+      const newSequence = currentSequenceState + 1
       setCurrentSequenceState(newSequence)
 
-      const newHighest = highestSequence + 1
+      const newHighest = highestSequenceState + 1
       setHighestSequenceState(newHighest)
+
+      increasePercentageWithoutApi()
+
+      const totalHabits = todayHabitList.length;
+      let completedHabits = todayHabitList.filter((h) => h.done).length;
+
+      const percentage = ((completedHabits / totalHabits) * 100).toFixed(0);
+
+      setPercentageCompleted(percentage);
 
       const promisse = axios.post(URL + `/habits/${id}/check`, {}, config)
-      promisse.then((answer) => setRefresh(!refresh))
+      promisse.then((answer) => console.log(answer.data))
       promisse.catch((err) => console.log(err))
 
-    } else if (habitCheck === true) {
+    } else if (done === true) {
       setHabitCheck(!habitCheck);
 
-      const newSequence = currentSequence - 1
+      const newSequence = currentSequenceState - 1
       setCurrentSequenceState(newSequence)
 
-      const newHighest = highestSequence - 1
+      const newHighest = highestSequenceState - 1
       setHighestSequenceState(newHighest)
-      
+
+      decreasePercentageWithoutApi()
+
+      const totalHabits = todayHabitList.length;
+      let completedHabits = todayHabitList.filter((h) => h.done).length;
+
+      const percentage = ((completedHabits / totalHabits) * 100).toFixed(0);
+
+      setPercentageCompleted(percentage);
+
       const promisse = axios.post(URL + `/habits/${id}/uncheck`, {}, config)
-      promisse.then((answer) => setRefresh(!refresh))
+      promisse.then((answer) => console.log(answer.data))
       promisse.catch((err) => console.log(err))
     }
   }
+
 
 
   return (
@@ -83,7 +101,7 @@ export default function TodayHabitCard(props) {
           </p>
         </div>
 
-        <ion-icon name="checkbox" onClick={() => habitDone(id)}></ion-icon>
+        <ion-icon name="checkbox" onClick={() => habitDone(id, done, todayHabitList)}></ion-icon>
       </TodayHabitCardContainer>
     </>
   );

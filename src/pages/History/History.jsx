@@ -10,7 +10,7 @@ export default function History() {
 
       <HistoryContainer>
         <h2>History</h2>
-        <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
+        <p>Soon you will be able to see the history of your habits here!</p>
       </HistoryContainer>
 
       <Footer />
@@ -29,8 +29,9 @@ const HistoryContainer = styled.div`
   }
 
   p {
-    font-size: 17.976px;
+    font-size: 16px;
     line-height: 22px;
     color: #666666;
+    margin-top: 23px;
   }
 `;

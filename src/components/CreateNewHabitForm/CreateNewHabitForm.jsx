@@ -56,7 +56,6 @@ export default function CreateNewHabitForm(props) {
   function success(answer) {
     const newArray = [...newHabitList, answer.data]
     setNewHabitList(newArray)
-    console.log(answer.data)
     setNewHabitName("");
     setSelectedDays([]);
     setFormShowUp(false);

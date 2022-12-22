@@ -17,21 +17,6 @@ export default function TodayPage() {
   const [refresh, setRefresh] = useState(false);
 
   const date = dayjs();
-  var updateLocale = require("dayjs/plugin/updateLocale");
-
-  dayjs.extend(updateLocale);
-
-  dayjs.updateLocale("en", {
-    weekdays: [
-      "Domingo",
-      "Segunda",
-      "Terça",
-      "Quarta",
-      "Quinta",
-      "Sexta",
-      "Sábado",
-    ],
-  });
 
   const { token } = useContext(LoginContext);
 
@@ -53,14 +38,16 @@ export default function TodayPage() {
     const totalHabits = answer.data.length;
     const completedHabits = answer.data.filter((h) => h.done).length;
     const percentage = ((completedHabits / totalHabits) * 100).toFixed(0);
-    console.log(percentage + "%");
     setPercentageCompleted(percentage);
-    console.log(answer.data);
   }
 
-  console.log(refresh);
+  function increasePercentageWithoutApi(h) {
+    h.done = true
+  }
 
-  console.log(percentageCompleted)
+  function decreasePercentageWithoutApi(h) {
+    h.done = false
+  }
 
   return (
     <>
@@ -83,13 +70,10 @@ export default function TodayPage() {
           currentSequence={h.currentSequence}
           highestSequence={h.highestSequence}
           done={h.done}
-          completedHabitsState={completedHabitsState}
-          setCompletedHabitsState={setCompletedHabitsState}
-          // totalTasks={totalTasks}
           todayHabitList={todayHabitList}
           setPercentageCompleted={setPercentageCompleted}
-          setRefresh={setRefresh}
-          refresh={refresh}
+          increasePercentageWithoutApi={() => increasePercentageWithoutApi(h)}
+          decreasePercentageWithoutApi={() => decreasePercentageWithoutApi(h)}
         />
       ))}
 

@@ -22,9 +22,6 @@ function habitDone(id) {
     } else if (habitCheck === true) {
       setHabitCheck(!habitCheck);
       setCurrentSequenceState(currentSequenceState - 1);
-      // setCompletedHabitsState(completedHabitsState - 1);
-      // const newCompletedHabits = completedHabitsState - 1;
-      // setPercentageCompleted(((newCompletedHabits / totalTasks) * 100).toFixed(0))
 
       const promisse = axios.post(URL + `/habits/${id}/uncheck`, {}, config)
       promisse.then((answer) => console.log(answer))

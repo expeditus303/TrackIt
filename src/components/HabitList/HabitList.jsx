@@ -12,7 +12,6 @@ export default function HabitList(props) {
   const { token } = useContext(LoginContext)
 
   function deleteHabit(id) {
-    console.log(id)
     let text = "Do you want to delete it?";
     if (window.confirm(text) == true) {
       const deletedHabitList = newHabitList.filter((d) => d.id !== id)
