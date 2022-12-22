@@ -33,9 +33,10 @@ export default function HabitList(props) {
   }
 
 
+
   return (
     <HabitsListContainer>
-      {newHabitList.map((h) => (
+      {newHabitList.reverse().map((h) => (
         <HabitCard key={h.id}>
           <div>
             <h3>{h.name}</h3>

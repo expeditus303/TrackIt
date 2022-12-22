@@ -29,11 +29,6 @@ export default function CreateNewHabitForm(props) {
   }
 
   function saveHabit() {
-    // if (newHabitName.length === 0) {
-    //   alert("Please, insert a habit.");
-    // } else if (selectedDays.length === 0) {
-    //   alert("Please, select at least one day for your habit.");
-    // } else {
       setLoading(undefined);
 
       const habitInfoSent = {
@@ -54,7 +49,7 @@ export default function CreateNewHabitForm(props) {
   }
 
   function success(answer) {
-    const newArray = [...newHabitList, answer.data]
+    const newArray = [answer.data, ...newHabitList]
     setNewHabitList(newArray)
     setNewHabitName("");
     setSelectedDays([]);

@@ -12,7 +12,6 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [disable, setDisable] = useState(false);
 
   const navigate = useNavigate();
 
@@ -98,7 +97,6 @@ export default function LoginPage() {
             placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            disabled={disable}
           />
           <input
             type="password"

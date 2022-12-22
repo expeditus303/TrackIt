@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import HabitsPage from "./pages/HabitsPage/HabitsPage";
 import History from "./pages/History/History";
@@ -18,11 +18,14 @@ function App() {
 
   const [image, setImage] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
 
+  const [percentageCompleted, setPercentageCompleted] = useState(0);
+
+
   return (
     <BrowserRouter>
       <Body>
         <GlobalStyle />
-        <LoginContext.Provider value={{token, setToken, image, setImage}}>
+        <LoginContext.Provider value={{token, setToken, image, setImage, percentageCompleted, setPercentageCompleted}}>
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/cadastro" element={<SignUpPage />} />

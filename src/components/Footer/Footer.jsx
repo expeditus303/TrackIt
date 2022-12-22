@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { accentColor } from "../../constants/colors";
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { useContext } from "react";
+import { LoginContext } from "../../contexts/LoginContext";
 
 export default function Footer() {
-  const percentage = 66;
+  const { percentageCompleted } = useContext(LoginContext)
 
   return (
     <FooterContainer>
@@ -14,38 +16,20 @@ export default function Footer() {
       </Link>
 
       <Link to="/hoje">
-
-        <button id="today">        <CircularProgressbar
-          value={percentage}
-          text={`${percentage}%`}
-          styles={buildStyles({
-            // Rotation of path and trail, in number of turns (0-1)
-            rotation: 0.25,
-
-            // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-            strokeLinecap: "butt",
-
-            // Text size
-            text: {
-              // Text color
-              fill: '#a20404',
-              // Text size
-              fontSize: '16px',
-            },
-
-            // How long animation takes to go from one percentage to another, in seconds
-            pathTransitionDuration: 0.5,
-
-            // Can specify path transition in more detail, or remove it entirely
-            // pathTransition: 'none',
-
-            // Colors
-            pathColor: `${accentColor}, ${percentage / 100})`,
-            textColor: "#f88",
-            trailColor: "#d6d6d6",
-            backgroundColor: {accentColor}
-          })}
-        /></button>
+        <button id="today">
+          <CircularProgressbar
+            value={percentageCompleted}
+            text={`Today`}
+            background
+            backgroundPadding={6}
+            styles={buildStyles({
+              backgroundColor: "#3e98c7",
+              textColor: "#fff",
+              pathColor: "#fff",
+              trailColor: "transparent",
+            })}
+          />
+        </button>
       </Link>
 
       <Link to="/historico">
@@ -66,7 +50,7 @@ const FooterContainer = styled.div`
   padding: 10px 34px;
   box-sizing: border-box;
   background-color: #ffffff;
-
+  margin-bottom: 10px;
   button {
     font-family: "Lexend Deca";
     font-size: 17.976px;
@@ -80,6 +64,6 @@ const FooterContainer = styled.div`
   }
 
   #today {
-    width: 91px;
+    width: 95px;
   }
 `;

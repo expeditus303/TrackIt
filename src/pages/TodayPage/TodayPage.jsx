@@ -11,14 +11,10 @@ import { useContext, useEffect, useState } from "react";
 
 export default function TodayPage() {
   const [todayHabitList, setTodayHabitList] = useState([]);
-  const [completedHabitsState, setCompletedHabitsState] = useState(0);
-  const [percentageCompleted, setPercentageCompleted] = useState(0);
-
-  const [refresh, setRefresh] = useState(false);
 
   const date = dayjs();
 
-  const { token } = useContext(LoginContext);
+  const { token, percentageCompleted, setPercentageCompleted } = useContext(LoginContext);
 
   useEffect(() => {
     const config = {
@@ -31,7 +27,7 @@ export default function TodayPage() {
 
     promisse.then(success);
     promisse.catch((err) => console.log(err));
-  }, [refresh]);
+  }, []);
 
   function success(answer) {
     setTodayHabitList(answer.data);

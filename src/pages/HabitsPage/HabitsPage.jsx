@@ -24,7 +24,7 @@ export default function HabitsPage(props) {
     };
 
     const promisse = axios.get(URL + "habits", config);
-    promisse.then((answer) => setNewHabitList(answer.data));
+    promisse.then((answer) => setNewHabitList(answer.data.reverse()));
     promisse.catch((err) => console.log(err));
   }, []);
 
