@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import HabitsPage from "./pages/HabitsPage/HabitsPage";
 import History from "./pages/History/History";
@@ -9,14 +9,14 @@ import GlobalStyle from "./styles/GlobalStyle";
 import { LoginContext } from "./contexts/LoginContext";
 import { useState } from "react";
 
-// apagar abaixo os imports
-
 
 function App() {
 
-  const [token, setToken] = useState("")
+  const [token, setToken] = useState(localStorage.getItem("tokenLocal"))
+  
+  console.log(token)
 
-  const [image, setImage] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+  const [image, setImage] = useState(token ? localStorage.getItem("image") : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
 
   const [percentageCompleted, setPercentageCompleted] = useState(0);
 

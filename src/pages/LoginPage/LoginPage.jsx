@@ -32,8 +32,11 @@ export default function LoginPage() {
 
   function success(answer) {
     navigate("/hoje");
-    setToken(answer.data.token);
-    setImage(answer.data.image);
+    localStorage.setItem("tokenLocal", answer.data.token)
+    setToken(localStorage.getItem("tokenLocal"));
+    
+    localStorage.setItem("image", answer.data.image)
+    setImage(localStorage.getItem("image"));
   }
 
   function error(err) {
